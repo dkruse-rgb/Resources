@@ -7,7 +7,7 @@
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  const DISPLAY_ORDER = ['XEN1B', 'XEN5B', 'XEN4B', 'XEN6B', 'XEN2B', 'XEN3B', 'XEN7B', 'XEN8B', 'XEN9B'];
+  const DISPLAY_ORDER = ['XEN1B', 'XEN2B', 'XEN3B', 'XEN4B', 'XEN5B', 'XEN6B', 'XEN7B', 'XEN8B', 'XEN9B'];
 
   const JOBS = {
     XEN1B: { turn: 1, anchor: '2026-01-05' },
@@ -117,7 +117,7 @@
     const assignmentHeader = document.createElement('th');
     assignmentHeader.scope = 'col';
     assignmentHeader.className = 'assignment-column';
-    assignmentHeader.textContent = 'Assignment';
+    assignmentHeader.textContent = 'Spot';
     headerRow.appendChild(assignmentHeader);
 
     for (let day = 1; day <= daysInMonth; day += 1) {
@@ -141,7 +141,7 @@
       const jobHeader = document.createElement('th');
       jobHeader.scope = 'row';
       jobHeader.className = 'job-row-header';
-      jobHeader.innerHTML = `<button type="button" class="turn-focus" data-job="${jobId}"><strong>${jobId}</strong><span>Turn ${JOBS[jobId].turn}</span></button>`;
+      jobHeader.innerHTML = `<button type="button" class="turn-focus" data-job="${jobId}"><strong>Spot ${JOBS[jobId].turn}</strong><span>${jobId}</span></button>`;
       row.appendChild(jobHeader);
 
       for (let day = 1; day <= daysInMonth; day += 1) {
@@ -157,7 +157,7 @@
         cell.textContent = off ? 'OFF' : '';
         cell.setAttribute(
           'aria-label',
-          `${jobId}, ${LONG_WEEKDAYS[date.getDay()]}, ${MONTHS[monthIndex]} ${day}, ${YEAR}${off ? ', assigned off day' : ''}${today ? ', today' : ''}`
+          `Spot ${JOBS[jobId].turn}, ${jobId}, ${LONG_WEEKDAYS[date.getDay()]}, ${MONTHS[monthIndex]} ${day}, ${YEAR}${off ? ', assigned off day' : ''}${today ? ', today' : ''}`
         );
         row.appendChild(cell);
       }
@@ -248,7 +248,7 @@
       }
       summaryKicker.textContent = 'Complete schedule';
       selectedJob.textContent = 'All XEN Turn Spots';
-      selectedDescription.textContent = 'XEN1B through XEN9B shown together for all twelve months';
+      selectedDescription.textContent = 'Spots 1 through 9 shown together for all twelve months';
       primaryStat.textContent = DISPLAY_ORDER.length;
       primaryStatLabel.textContent = 'turn spots shown';
       document.title = '2026 XEN Off-Day Matrix | Rail Labor Resource Center';
@@ -259,11 +259,11 @@
         grid.appendChild(createIndividualMonth(normalizedView, month));
       }
       summaryKicker.textContent = 'Selected assignment';
-      selectedJob.textContent = normalizedView;
+      selectedJob.textContent = `Spot ${job.turn} — ${normalizedView}`;
       selectedDescription.textContent = `Matrix Turn ${job.turn} • 6 days on, 2 assigned days off`;
       primaryStat.textContent = getOffDays(normalizedView).length;
       primaryStatLabel.textContent = 'off days in 2026';
-      document.title = `${normalizedView} 2026 Off-Day Calendar | Rail Labor Resource Center`;
+      document.title = `Spot ${job.turn} ${normalizedView} 2026 Off-Day Calendar | Rail Labor Resource Center`;
     }
 
     picker.value = normalizedView;
