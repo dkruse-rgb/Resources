@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive 2026 assigned off-day calendar for Beaumont XEN1B through XEN8B jobs.">
+  <title>2026 XEN Off-Day Calendar | Rail Labor Resource Center</title>
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <span>US South • Baton Rouge–Beaumont • 2026 ADO schedule</span>
+      <a href="https://github.com/dkruse-rgb/Resources/tree/main/work-resources/schedules/xen-ado-calendar-2026" target="_blank" rel="noopener">View source folder</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../../" aria-label="Rail Labor Resource Center home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 72 72" role="img">
+            <circle cx="36" cy="36" r="33" fill="none" stroke="currentColor" stroke-width="4"/>
+            <path d="M20 44h32M24 52h24M26 39V22h20v17M31 22v-6h10v6M30 31h4m4 0h4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 58 36 47 50 58" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Rail Labor</strong>
+          <span>Resource Center</span>
+        </span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Open navigation</span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="Main navigation">
+        <a href="../../../">Home</a>
+        <a href="../../../#resources">Resources</a>
+        <a class="active" href="./">Schedules</a>
+        <a href="../../contract/">Contracts</a>
+        <a href="../../../#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero calendar-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="../../../">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>Schedules</span>
+          <span aria-hidden="true">/</span>
+          <span>2026 XEN Off Days</span>
+        </nav>
+        <p class="eyebrow">Beaumont extra board schedule</p>
+        <h1>2026 XEN Off-Day Calendar</h1>
+        <p>Select an XEN job to view its assigned off days throughout 2026. Gold dates are scheduled rest days under the 6-on / 2-off matrix.</p>
+      </div>
+    </section>
+
+    <section class="calendar-toolbar-wrap" aria-label="Calendar controls">
+      <div class="container calendar-toolbar">
+        <div class="job-picker-wrap">
+          <label for="job-picker">Select assignment</label>
+          <select id="job-picker">
+            <option value="XEN1B">XEN1B — Matrix Turn 1</option>
+            <option value="XEN5B">XEN5B — Matrix Turn 5</option>
+            <option value="XEN4B">XEN4B — Matrix Turn 4</option>
+            <option value="XEN6B">XEN6B — Matrix Turn 6</option>
+            <option value="XEN2B">XEN2B — Matrix Turn 2</option>
+            <option value="XEN3B">XEN3B — Matrix Turn 3</option>
+            <option value="XEN7B">XEN7B — Matrix Turn 7</option>
+            <option value="XEN8B">XEN8B — Matrix Turn 8</option>
+          </select>
+        </div>
+
+        <div class="toolbar-actions">
+          <a class="calendar-action" href="xen-ado-2026.csv" download>Download CSV</a>
+          <button class="calendar-action print-button" id="print-calendar" type="button">Print / Save PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calendar-section">
+      <div class="container">
+        <div class="calendar-summary">
+          <div>
+            <p class="eyebrow dark">Selected assignment</p>
+            <h2 id="selected-job">XEN1B</h2>
+            <p id="selected-description">Matrix Turn 1 • 6 days on, 2 assigned days off</p>
+          </div>
+          <div class="summary-stats" aria-live="polite">
+            <div>
+              <strong id="off-day-total">91</strong>
+              <span>off days in 2026</span>
+            </div>
+            <div>
+              <strong>6 & 2</strong>
+              <span>work/rest cycle</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend" aria-label="Calendar legend">
+          <span><i class="legend-swatch off-swatch" aria-hidden="true"></i> Assigned off day</span>
+          <span><i class="legend-swatch today-swatch" aria-hidden="true"></i> Today</span>
+        </div>
+
+        <noscript>
+          <div class="calendar-notice">JavaScript must be enabled to generate the calendar.</div>
+        </noscript>
+
+        <div id="calendar-grid" class="year-calendar" aria-live="polite"></div>
+
+        <section class="source-panel" aria-labelledby="source-heading">
+          <div>
+            <p class="eyebrow dark">Source and method</p>
+            <h2 id="source-heading">How this calendar was built</h2>
+          </div>
+          <div>
+            <p>The dates come from <strong>US South Region – Baton Rouge–Beaumont General Manager Notice No. 10</strong>, issued January 1, 2026, titled <strong>2026 6&amp;2 ADO Matrix</strong>.</p>
+            <p>This page maps each job number directly to the matching matrix turn number: XEN1B uses Turn 1, XEN2B uses Turn 2, and so on through XEN8B. Verify the assignment-to-turn mapping against current local instructions before relying on the calendar.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Rail Labor Resource Center</strong>
+        <span>Organized information for railroad workers.</span>
+      </div>
+      <div class="footer-meta">
+        <span>Independent resource library</span>
+        <span id="copyright-year"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../script.js"></script>
+  <script src="calendar.js"></script>
+</body>
+</html>
