@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical library of railroad work agreements, schedules, safety references, forms, and employee resources.">
+  <title>Rail Labor Resource Center</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <span>Independent railroad work-resource library</span>
+      <a href="https://github.com/dkruse-rgb/Resources" target="_blank" rel="noopener">View repository</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="Rail Labor Resource Center home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 72 72" role="img">
+            <circle cx="36" cy="36" r="33" fill="none" stroke="currentColor" stroke-width="4"/>
+            <path d="M20 44h32M24 52h24M26 39V22h20v17M31 22v-6h10v6M30 31h4m4 0h4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 58 36 47 50 58" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Rail Labor</strong>
+          <span>Resource Center</span>
+        </span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Open navigation</span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="Main navigation">
+        <a class="active" href="./">Home</a>
+        <a href="#resources">Resources</a>
+        <a href="work-resources/contract/">Contracts</a>
+        <a href="#quick-links">Quick Links</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="rail-lines" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Agreements • Rights • Safety • Reference</p>
+          <h1>Knowledge is protection.</h1>
+          <p class="hero-lead">A straightforward place to find the documents and information railroad employees need—without digging through old emails, scattered folders, and broken links.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#resources">Browse resources</a>
+            <a class="button button-secondary" href="work-resources/contract/">Open contract library</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Resource center highlights">
+          <div class="panel-kicker">Resource desk</div>
+          <h2>Built for the people doing the work.</h2>
+          <ul class="check-list">
+            <li>Mobile-friendly document access</li>
+            <li>Clear categories and plain-language labels</li>
+            <li>Direct links to original reference files</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="notice-strip" aria-label="Important notice">
+      <div class="container notice-inner">
+        <strong>Keep the record.</strong>
+        <span>Save agreements, notices, schedules, and supporting documents before they disappear from company systems.</span>
+      </div>
+    </section>
+
+    <section id="resources" class="section resources-section">
+      <div class="container">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow dark">Resource library</p>
+            <h2>Find what you need</h2>
+            <p>Choose a category below. More sections and files can be added as the library grows.</p>
+          </div>
+          <label class="resource-search">
+            <span class="sr-only">Search resource categories</span>
+            <input id="resource-search" type="search" placeholder="Search resources…" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="resource-grid" id="resource-grid">
+          <a class="resource-card featured" href="work-resources/contract/" data-search="contracts agreements memoranda arbitration amendments side letters">
+            <span class="card-number">01</span>
+            <span class="card-icon" aria-hidden="true">§</span>
+            <h3>Contracts & Agreements</h3>
+            <p>Collective bargaining agreements, amendments, side letters, memoranda, and arbitration materials.</p>
+            <span class="card-link">Open library <span aria-hidden="true">→</span></span>
+          </a>
+
+          <article class="resource-card coming-soon" data-search="schedules assignments jobs crew bulletins establishment changes">
+            <span class="card-number">02</span>
+            <span class="card-icon" aria-hidden="true">▦</span>
+            <h3>Schedules & Assignments</h3>
+            <p>Job schedules, crew assignments, abolishments, establishment changes, and related notices.</p>
+            <span class="status-pill">Coming next</span>
+          </article>
+
+          <article class="resource-card coming-soon" data-search="claims pay penalties examples time money grievance">
+            <span class="card-number">03</span>
+            <span class="card-icon" aria-hidden="true">$</span>
+            <h3>Claims & Pay</h3>
+            <p>Claim references, examples, time-slip support, pay provisions, and commonly used arguments.</p>
+            <span class="status-pill">Planned</span>
+          </article>
+
+          <article class="resource-card coming-soon" data-search="safety fra osha heat rules gcor equipment operating">
+            <span class="card-number">04</span>
+            <span class="card-icon" aria-hidden="true">⚠</span>
+            <h3>Safety & Operating Rules</h3>
+            <p>FRA, OSHA, operating-rule, heat-safety, equipment, and good-faith challenge references.</p>
+            <span class="status-pill">Planned</span>
+          </article>
+
+          <article class="resource-card coming-soon" data-search="forms templates handouts printable letters">
+            <span class="card-number">05</span>
+            <span class="card-icon" aria-hidden="true">▤</span>
+            <h3>Forms & Handouts</h3>
+            <p>Reusable forms, printable guides, templates, checklists, and employee handouts.</p>
+            <span class="status-pill">Planned</span>
+          </article>
+
+          <article class="resource-card coming-soon" data-search="contacts union representatives phone email useful links">
+            <span class="card-number">06</span>
+            <span class="card-icon" aria-hidden="true">☎</span>
+            <h3>Contacts & Links</h3>
+            <p>Useful agencies, union contacts, benefit resources, reporting channels, and reference links.</p>
+            <span class="status-pill">Planned</span>
+          </article>
+        </div>
+        <p id="no-results" class="no-results" hidden>No matching resource categories found.</p>
+      </div>
+    </section>
+
+    <section id="quick-links" class="section quick-section">
+      <div class="container quick-grid">
+        <div class="section-heading light-heading">
+          <p class="eyebrow">Quick access</p>
+          <h2>Start with the essentials</h2>
+          <p>This area will become the fast lane for the files people reach for most often.</p>
+        </div>
+        <div class="quick-links">
+          <a href="work-resources/contract/">
+            <span>Contract library</span>
+            <strong>Browse agreements</strong>
+          </a>
+          <a href="https://github.com/dkruse-rgb/Resources/tree/main/work-resources" target="_blank" rel="noopener">
+            <span>Source files</span>
+            <strong>Open on GitHub</strong>
+          </a>
+          <a href="#about">
+            <span>About this project</span>
+            <strong>How the library works</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow dark">About the project</p>
+          <h2>A practical resource—not an official union publication.</h2>
+        </div>
+        <div class="about-copy">
+          <p>This site is being assembled as an independent document library for railroad employees. It is designed to make work resources easier to find, understand, and share.</p>
+          <p>Documents should be checked against current agreements, official notices, and applicable law before being relied upon. The site can later be expanded with summaries, searchable indexes, location-specific pages, and direct downloads.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Rail Labor Resource Center</strong>
+        <span>Organized information for railroad workers.</span>
+      </div>
+      <div class="footer-meta">
+        <span>Independent resource library</span>
+        <span id="copyright-year"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
