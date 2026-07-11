@@ -22,9 +22,11 @@
 
   const picker = document.querySelector('#job-picker');
   const grid = document.querySelector('#calendar-grid');
+  const summaryKicker = document.querySelector('#summary-kicker');
   const selectedJob = document.querySelector('#selected-job');
   const selectedDescription = document.querySelector('#selected-description');
-  const offDayTotal = document.querySelector('#off-day-total');
+  const primaryStat = document.querySelector('#primary-stat');
+  const primaryStatLabel = document.querySelector('#primary-stat-label');
   const printButton = document.querySelector('#print-calendar');
   const csvLink = document.querySelector('a[href="xen-ado-2026.csv"]');
 
@@ -49,6 +51,11 @@
     const difference = Math.floor((current - anchor) / DAY_MS);
     const cycleDay = ((difference % 8) + 8) % 8;
     return cycleDay === 0 || cycleDay === 1;
+  }
+
+  function isToday(monthIndex, day) {
+    const today = new Date();
+    return today.getFullYear() === YEAR && today.getMonth() === monthIndex && today.getDate() === day;
   }
 
   function getOffDays(jobId) {
@@ -85,17 +92,92 @@
     return ranges.join(', ');
   }
 
-  function createMonth(jobId, monthIndex) {
+  function createAllTurnMonth(monthIndex) {
+    const daysInMonth = new Date(YEAR, monthIndex + 1, 0).getDate();
+    const section = document.createElement('section');
+    section.className = 'matrix-month';
+    section.setAttribute('aria-labelledby', `month-${monthIndex}`);
+
+    const heading = document.createElement('header');
+    heading.className = 'matrix-month-heading';
+    heading.innerHTML = `<h3 id="month-${monthIndex}">${MONTHS[monthIndex]} ${YEAR}</h3><span>All eight turn spots</span>`;
+    section.appendChild(heading);
+
+    const scroller = document.createElement('div');
+    scroller.className = 'matrix-scroll';
+    scroller.tabIndex = 0;
+    scroller.setAttribute('aria-label', `${MONTHS[monthIndex]} schedule table; scroll horizontally for all dates`);
+
+    const table = document.createElement('table');
+    table.className = 'turn-matrix';
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const assignmentHeader = document.createElement('th');
+    assignmentHeader.scope = 'col';
+    assignmentHeader.className = 'assignment-column';
+    assignmentHeader.textContent = 'Assignment';
+    headerRow.appendChild(assignmentHeader);
+
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const date = new Date(YEAR, monthIndex, day);
+      const th = document.createElement('th');
+      th.scope = 'col';
+      th.className = 'date-column';
+      if (date.getDay() === 0 || date.getDay() === 6) th.classList.add('weekend');
+      if (isToday(monthIndex, day)) th.classList.add('today-column');
+      th.innerHTML = `<span>${day}</span><small>${WEEKDAYS[date.getDay()].slice(0, 1)}</small>`;
+      th.setAttribute('aria-label', `${LONG_WEEKDAYS[date.getDay()]}, ${MONTHS[monthIndex]} ${day}`);
+      headerRow.appendChild(th);
+    }
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    DISPLAY_ORDER.forEach((jobId) => {
+      const row = document.createElement('tr');
+      const jobHeader = document.createElement('th');
+      jobHeader.scope = 'row';
+      jobHeader.className = 'job-row-header';
+      jobHeader.innerHTML = `<button type="button" class="turn-focus" data-job="${jobId}"><strong>${jobId}</strong><span>Turn ${JOBS[jobId].turn}</span></button>`;
+      row.appendChild(jobHeader);
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const cell = document.createElement('td');
+        const off = isOffDay(jobId, YEAR, monthIndex, day);
+        const today = isToday(monthIndex, day);
+        const date = new Date(YEAR, monthIndex, day);
+
+        cell.className = 'matrix-day';
+        if (date.getDay() === 0 || date.getDay() === 6) cell.classList.add('weekend');
+        if (off) cell.classList.add('off-day');
+        if (today) cell.classList.add('today');
+        cell.textContent = off ? 'OFF' : '';
+        cell.setAttribute(
+          'aria-label',
+          `${jobId}, ${LONG_WEEKDAYS[date.getDay()]}, ${MONTHS[monthIndex]} ${day}, ${YEAR}${off ? ', assigned off day' : ''}${today ? ', today' : ''}`
+        );
+        row.appendChild(cell);
+      }
+
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    scroller.appendChild(table);
+    section.appendChild(scroller);
+    return section;
+  }
+
+  function createIndividualMonth(jobId, monthIndex) {
     const month = document.createElement('section');
     month.className = 'month-card';
     month.setAttribute('aria-label', `${MONTHS[monthIndex]} ${YEAR}`);
 
     const header = document.createElement('header');
     header.className = 'month-heading';
-    header.innerHTML = `
-      <h3>${MONTHS[monthIndex]}</h3>
-      <p>Off: ${summarizeMonth(jobId, monthIndex)}</p>
-    `;
+    header.innerHTML = `<h3>${MONTHS[monthIndex]}</h3><p>Off: ${summarizeMonth(jobId, monthIndex)}</p>`;
     month.appendChild(header);
 
     const weekdayRow = document.createElement('div');
@@ -109,8 +191,8 @@
 
     const days = document.createElement('div');
     days.className = 'month-days';
-
     const firstWeekday = new Date(YEAR, monthIndex, 1).getDay();
+
     for (let blank = 0; blank < firstWeekday; blank += 1) {
       const spacer = document.createElement('span');
       spacer.className = 'calendar-day empty-day';
@@ -119,23 +201,17 @@
     }
 
     const daysInMonth = new Date(YEAR, monthIndex + 1, 0).getDate();
-    const today = new Date();
-
     for (let day = 1; day <= daysInMonth; day += 1) {
       const cell = document.createElement('span');
       const off = isOffDay(jobId, YEAR, monthIndex, day);
-      const isToday = today.getFullYear() === YEAR && today.getMonth() === monthIndex && today.getDate() === day;
+      const today = isToday(monthIndex, day);
       const weekday = WEEKDAYS[new Date(YEAR, monthIndex, day).getDay()];
 
       cell.className = 'calendar-day';
       cell.textContent = day;
-      cell.dataset.date = dateKey(YEAR, monthIndex, day);
       if (off) cell.classList.add('off-day');
-      if (isToday) cell.classList.add('today');
-
-      const status = off ? ', assigned off day' : '';
-      const todayStatus = isToday ? ', today' : '';
-      cell.setAttribute('aria-label', `${weekday}, ${MONTHS[monthIndex]} ${day}, ${YEAR}${status}${todayStatus}`);
+      if (today) cell.classList.add('today');
+      cell.setAttribute('aria-label', `${weekday}, ${MONTHS[monthIndex]} ${day}, ${YEAR}${off ? ', assigned off day' : ''}${today ? ', today' : ''}`);
       days.appendChild(cell);
     }
 
@@ -145,8 +221,8 @@
 
   function buildCsvDownload() {
     if (!csvLink) return;
-
     const rows = [['job_id', 'matrix_turn', 'date', 'day_of_week', 'month']];
+
     DISPLAY_ORDER.forEach((jobId) => {
       getOffDays(jobId).forEach(({ month, day, key }) => {
         const weekday = LONG_WEEKDAYS[new Date(YEAR, month, day).getDay()];
@@ -160,33 +236,52 @@
     csvLink.download = 'xen-ado-off-days-2026.csv';
   }
 
-  function render(jobId) {
-    const job = JOBS[jobId] || JOBS.XEN1B;
+  function render(view) {
+    const normalizedView = view === 'ALL' || JOBS[view] ? view : 'ALL';
     grid.replaceChildren();
 
-    for (let month = 0; month < 12; month += 1) {
-      grid.appendChild(createMonth(jobId, month));
+    if (normalizedView === 'ALL') {
+      grid.className = 'all-turn-calendar';
+      for (let month = 0; month < 12; month += 1) {
+        grid.appendChild(createAllTurnMonth(month));
+      }
+      summaryKicker.textContent = 'Complete schedule';
+      selectedJob.textContent = 'All XEN Turn Spots';
+      selectedDescription.textContent = 'XEN1B through XEN8B shown together for all twelve months';
+      primaryStat.textContent = DISPLAY_ORDER.length;
+      primaryStatLabel.textContent = 'turn spots shown';
+      document.title = '2026 XEN Off-Day Matrix | Rail Labor Resource Center';
+    } else {
+      const job = JOBS[normalizedView];
+      grid.className = 'year-calendar';
+      for (let month = 0; month < 12; month += 1) {
+        grid.appendChild(createIndividualMonth(normalizedView, month));
+      }
+      summaryKicker.textContent = 'Selected assignment';
+      selectedJob.textContent = normalizedView;
+      selectedDescription.textContent = `Matrix Turn ${job.turn} • 6 days on, 2 assigned days off`;
+      primaryStat.textContent = getOffDays(normalizedView).length;
+      primaryStatLabel.textContent = 'off days in 2026';
+      document.title = `${normalizedView} 2026 Off-Day Calendar | Rail Labor Resource Center`;
     }
 
-    selectedJob.textContent = jobId;
-    selectedDescription.textContent = `Matrix Turn ${job.turn} • 6 days on, 2 assigned days off`;
-    offDayTotal.textContent = getOffDays(jobId).length;
-    document.title = `${jobId} 2026 Off-Day Calendar | Rail Labor Resource Center`;
-
+    picker.value = normalizedView;
     const url = new URL(window.location.href);
-    url.searchParams.set('job', jobId);
+    url.searchParams.set('view', normalizedView);
+    url.searchParams.delete('job');
     window.history.replaceState({}, '', url);
   }
 
-  const requestedJob = new URLSearchParams(window.location.search).get('job');
-  const initialJob = requestedJob && JOBS[requestedJob.toUpperCase()]
-    ? requestedJob.toUpperCase()
-    : 'XEN1B';
+  const params = new URLSearchParams(window.location.search);
+  const requested = (params.get('view') || params.get('job') || 'ALL').toUpperCase();
 
-  picker.value = initialJob;
   buildCsvDownload();
-  render(initialJob);
+  render(requested);
 
   picker.addEventListener('change', () => render(picker.value));
+  grid.addEventListener('click', (event) => {
+    const button = event.target.closest('.turn-focus');
+    if (button) render(button.dataset.job);
+  });
   if (printButton) printButton.addEventListener('click', () => window.print());
 })();
