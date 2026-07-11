@@ -7,7 +7,7 @@
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  const DISPLAY_ORDER = ['XEN1B', 'XEN5B', 'XEN4B', 'XEN6B', 'XEN2B', 'XEN3B', 'XEN7B', 'XEN8B'];
+  const DISPLAY_ORDER = ['XEN1B', 'XEN5B', 'XEN4B', 'XEN6B', 'XEN2B', 'XEN3B', 'XEN7B', 'XEN8B', 'XEN9B'];
 
   const JOBS = {
     XEN1B: { turn: 1, anchor: '2026-01-05' },
@@ -17,7 +17,8 @@
     XEN5B: { turn: 5, anchor: '2026-01-06' },
     XEN6B: { turn: 6, anchor: '2025-12-31' },
     XEN7B: { turn: 7, anchor: '2026-01-02' },
-    XEN8B: { turn: 8, anchor: '2026-01-04' }
+    XEN8B: { turn: 8, anchor: '2026-01-04' },
+    XEN9B: { turn: 9, anchor: '2026-01-05' }
   };
 
   const picker = document.querySelector('#job-picker');
@@ -100,7 +101,7 @@
 
     const heading = document.createElement('header');
     heading.className = 'matrix-month-heading';
-    heading.innerHTML = `<h3 id="month-${monthIndex}">${MONTHS[monthIndex]} ${YEAR}</h3><span>All eight turn spots</span>`;
+    heading.innerHTML = `<h3 id="month-${monthIndex}">${MONTHS[monthIndex]} ${YEAR}</h3><span>All nine turn spots</span>`;
     section.appendChild(heading);
 
     const scroller = document.createElement('div');
@@ -247,7 +248,7 @@
       }
       summaryKicker.textContent = 'Complete schedule';
       selectedJob.textContent = 'All XEN Turn Spots';
-      selectedDescription.textContent = 'XEN1B through XEN8B shown together for all twelve months';
+      selectedDescription.textContent = 'XEN1B through XEN9B shown together for all twelve months';
       primaryStat.textContent = DISPLAY_ORDER.length;
       primaryStatLabel.textContent = 'turn spots shown';
       document.title = '2026 XEN Off-Day Matrix | Rail Labor Resource Center';
