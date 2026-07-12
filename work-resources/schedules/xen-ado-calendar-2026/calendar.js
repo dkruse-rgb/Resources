@@ -93,6 +93,70 @@
     return ranges.join(', ');
   }
 
+  function createMatrixMobileControls(scroller, daysInMonth, monthName) {
+    const controls = document.createElement('div');
+    controls.className = 'matrix-mobile-controls';
+
+    const earlierButton = document.createElement('button');
+    earlierButton.type = 'button';
+    earlierButton.textContent = '← Earlier';
+    earlierButton.setAttribute('aria-label', `Show earlier dates in ${monthName}`);
+
+    const rangeLabel = document.createElement('span');
+    rangeLabel.setAttribute('aria-live', 'polite');
+
+    const laterButton = document.createElement('button');
+    laterButton.type = 'button';
+    laterButton.textContent = 'Later →';
+    laterButton.setAttribute('aria-label', `Show later dates in ${monthName}`);
+
+    controls.append(earlierButton, rangeLabel, laterButton);
+
+    const dayWidth = 29;
+    const assignmentWidth = 116;
+
+    function updateControls() {
+      const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+      const currentScroll = Math.max(0, scroller.scrollLeft);
+      const firstVisibleDay = Math.min(
+        daysInMonth,
+        Math.max(1, Math.floor(currentScroll / dayWidth) + 1)
+      );
+      const visibleDayCount = Math.max(
+        1,
+        Math.ceil(Math.max(dayWidth, scroller.clientWidth - assignmentWidth) / dayWidth)
+      );
+      const lastVisibleDay = Math.min(daysInMonth, firstVisibleDay + visibleDayCount - 1);
+
+      earlierButton.disabled = currentScroll <= 2;
+      laterButton.disabled = currentScroll >= maxScroll - 2;
+      rangeLabel.textContent = `Days ${firstVisibleDay}–${lastVisibleDay} of ${daysInMonth}`;
+    }
+
+    function moveDates(direction) {
+      const amount = Math.max(dayWidth * 7, scroller.clientWidth - assignmentWidth);
+      scroller.scrollBy({ left: direction * amount, behavior: 'smooth' });
+    }
+
+    earlierButton.addEventListener('click', () => moveDates(-1));
+    laterButton.addEventListener('click', () => moveDates(1));
+    scroller.addEventListener('scroll', updateControls, { passive: true });
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(updateControls);
+      observer.observe(scroller);
+    } else {
+      window.addEventListener('resize', updateControls, { passive: true });
+    }
+
+    requestAnimationFrame(() => {
+      scroller.scrollLeft = 0;
+      updateControls();
+    });
+
+    return controls;
+  }
+
   function createAllTurnMonth(monthIndex) {
     const daysInMonth = new Date(YEAR, monthIndex + 1, 0).getDate();
     const section = document.createElement('section');
@@ -167,6 +231,7 @@
 
     table.appendChild(tbody);
     scroller.appendChild(table);
+    section.appendChild(createMatrixMobileControls(scroller, daysInMonth, MONTHS[monthIndex]));
     section.appendChild(scroller);
     return section;
   }
@@ -251,7 +316,7 @@
       selectedDescription.textContent = 'Spots 1 through 9 shown together for all twelve months';
       primaryStat.textContent = DISPLAY_ORDER.length;
       primaryStatLabel.textContent = 'turn spots shown';
-      document.title = '2026 XEN Off-Day Matrix | Rail Labor Resource Center';
+      document.title = '2026 XEN Off-Day Matrix | Railroad Workbench';
     } else {
       const job = JOBS[normalizedView];
       grid.className = 'year-calendar';
@@ -263,7 +328,7 @@
       selectedDescription.textContent = `Matrix Turn ${job.turn} • 6 days on, 2 assigned days off`;
       primaryStat.textContent = getOffDays(normalizedView).length;
       primaryStatLabel.textContent = 'off days in 2026';
-      document.title = `Spot ${job.turn} ${normalizedView} 2026 Off-Day Calendar | Rail Labor Resource Center`;
+      document.title = `Spot ${job.turn} ${normalizedView} 2026 Off-Day Calendar | Railroad Workbench`;
     }
 
     picker.value = normalizedView;
