@@ -316,7 +316,7 @@
       selectedDescription.textContent = 'Spots 1 through 9 shown together for all twelve months';
       primaryStat.textContent = DISPLAY_ORDER.length;
       primaryStatLabel.textContent = 'turn spots shown';
-      document.title = '2026 XEN Off-Day Matrix | Railroad Workbench';
+      document.title = '2026 XEN Off-Day Matrix | My Random Resources';
     } else {
       const job = JOBS[normalizedView];
       grid.className = 'year-calendar';
@@ -328,7 +328,7 @@
       selectedDescription.textContent = `Matrix Turn ${job.turn} • 6 days on, 2 assigned days off`;
       primaryStat.textContent = getOffDays(normalizedView).length;
       primaryStatLabel.textContent = 'off days in 2026';
-      document.title = `Spot ${job.turn} ${normalizedView} 2026 Off-Day Calendar | Railroad Workbench`;
+      document.title = `Spot ${job.turn} ${normalizedView} 2026 Off-Day Calendar | My Random Resources`;
     }
 
     picker.value = normalizedView;
