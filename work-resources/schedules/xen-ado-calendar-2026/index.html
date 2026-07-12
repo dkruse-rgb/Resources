@@ -26,8 +26,50 @@
       margin: 0;
       color: var(--muted);
     }
+    .matrix-mobile-controls {
+      display: none;
+    }
     @media (max-width: 700px) {
       .compact-page-heading { padding: 24px 0 20px; }
+      .matrix-mobile-controls {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: #f4f0e7;
+        border-bottom: 1px solid #d8d3c8;
+      }
+      .matrix-mobile-controls button {
+        min-height: 40px;
+        padding: 0 12px;
+        color: #fff;
+        background: var(--navy-800);
+        border: 0;
+        font-size: .7rem;
+        font-weight: 900;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+      }
+      .matrix-mobile-controls button:disabled {
+        opacity: .35;
+      }
+      .matrix-mobile-controls span {
+        color: var(--navy-900);
+        font-size: .72rem;
+        font-weight: 900;
+        text-align: center;
+      }
+      .matrix-scroll {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0 !important;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x pan-y;
+        scroll-behavior: smooth;
+        scrollbar-gutter: stable;
+      }
     }
   </style>
 </head>
@@ -128,7 +170,7 @@
         <div class="legend" aria-label="Calendar legend">
           <span><i class="legend-swatch off-swatch" aria-hidden="true"></i> Assigned off day</span>
           <span><i class="legend-swatch today-swatch" aria-hidden="true"></i> Today</span>
-          <span class="mobile-hint">Swipe a month sideways to see every date.</span>
+          <span class="mobile-hint">Swipe sideways or use the Earlier and Later buttons.</span>
         </div>
 
         <noscript>
