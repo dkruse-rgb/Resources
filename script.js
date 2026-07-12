@@ -1,4 +1,13 @@
 (() => {
+  const currentScript = document.currentScript;
+  if (currentScript?.src && !document.querySelector('link[data-clean-theme]')) {
+    const themeLink = document.createElement('link');
+    themeLink.rel = 'stylesheet';
+    themeLink.href = new URL('clean-theme.css', currentScript.src).href;
+    themeLink.dataset.cleanTheme = 'true';
+    document.head.appendChild(themeLink);
+  }
+
   const menuButton = document.querySelector('.menu-button');
   const navigation = document.querySelector('.primary-nav');
 
