@@ -7,7 +7,7 @@ Beaumont,YL07,EN/FO/BK,3,Beaumont,5/12's,05:00,05:00,05:00,05:00,05:00,OFF,OFF,"
 Beaumont,RLF5,EN/CO,2,Port Arthur/Beaumont,5/12's,OFF,OFF,08:00 BM02,08:00 BM02,10:00 LB02,23:59 LB07,23:59 LB07,Relief 5. Qualified Engineer and Qualified Conductor. Starting location shown as Port Arthur/Beaumont.
 Port Arthur,LP01,RC FO/S1,2,Port Arthur,5/12's,06:00,06:00,06:00,06:00,06:00,OFF,OFF,Qualified RCO Conductor and Qualified RCO Brakeman.
 Port Arthur,LP04,RC FO/S1,2,Port Arthur,5/12's,18:00,18:00,18:00,18:00,18:00,OFF,OFF,Qualified RCO Conductor and Qualified RCO Brakeman.
-Port Arthur,LP03,EN/FO/BK,3,Port Arthur,5/12's,16:00,16:00,16:00,16:00,16:00,OFF,OFF,"Qualified Engineer, Qualified Conductor, Qualified Brakeman; matrix/job table was not updated."
+Port Arthur,LP03,EN/CO/B1,3,Port Arthur,5/12's,20:00,20:00,20:00,20:00,20:00,OFF,OFF,"Changed effective July 27, 2026. Qualified Engineer, Qualified Conductor, Qualified Brakeman."
 Port Arthur,BM01,EN/FO/BK,3,Port Arthur,5/12's,15:30,15:30,15:30,15:30,15:30,OFF,OFF,"Qualified Engineer, Qualified Conductor, Qualified Brakeman; matrix/job table was not updated."
 Port Arthur,BM02,EN/FO,2,Port Arthur,5/12's,08:00,08:00,OFF,OFF,08:00,08:00,08:00,Qualified Engineer and Qualified Conductor.
 Mossville,L18,EN/CO,2,Mossville,5/12's,OFF,16:15,16:15,16:15,16:15,16:15,OFF,Qualified Engineer and Qualified Conductor.
